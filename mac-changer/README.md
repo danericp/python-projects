@@ -7,6 +7,7 @@
 
 * [subprocess](https://docs.python.org/3/library/subprocess.html?highlight=subprocess): The subprocess module allows you to spawn new processes, connect to their input/output/error pipes, and obtain their return codes.
 * [optparse](https://docs.python.org/3/library/optparse.html?highlight=optparse): optparse is a more convenient, flexible, and powerful library for parsing command-line options than the old getopt module.
+* [re](https://docs.python.org/3/library/re.html?highlight=re): This module provides regular expression matching operations similar to those found in Perl.
 
 ## Usage
 
