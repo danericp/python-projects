@@ -9,6 +9,17 @@
 * [optparse](https://docs.python.org/3/library/optparse.html?highlight=optparse): optparse is a more convenient, flexible, and powerful library for parsing command-line options than the old getopt module.
 * [re](https://docs.python.org/3/library/re.html?highlight=re): This module provides regular expression matching operations similar to those found in Perl.
 
+## Output
+
+A confirmation message where if the MAC address has been successfully changed.
+
+## Process
+
+1. Optionally, list all the network interfaces in your machine.
+2. Disable the target network interface. You cannot change the its MAC address if the interface is enabled.
+3. Modify the Ethernet/MAC
+4. Enable back the target network interface
+
 ## Usage
 
 ```
