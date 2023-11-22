@@ -16,9 +16,9 @@ A confirmation message where if the MAC address has been successfully changed.
 ## Process
 
 1. Optionally, list all the network interfaces in your machine.
-2. Disable the target network interface. You cannot change the its MAC address if the interface is enabled.
-3. Modify the Ethernet/MAC
-4. Enable back the target network interface
+2. Disable the target network interface. You cannot change its MAC address if the interface is enabled.
+3. Modify the Ethernet/MAC.
+4. Enable the target network interface back.
 
 ## Usage
 
