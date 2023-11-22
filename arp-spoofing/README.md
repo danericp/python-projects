@@ -1,8 +1,8 @@
 ## Program Requirements
 
 * Linux-based Operating System (Kali, Parrot or Arch)
-* Python 2 or 3
-* A target machine
+* Python 3 (Python 2 commands have been replaced)
+* A target machine (Tested in Windows)
 * A network connection (wired or wireless) for the machines
 
 ## Module Requirements
@@ -13,18 +13,30 @@
 
 ## Output
 
-A continuous output of packet sending
+A continuous output of sending packets count. This can be stopped by a keyboard interruption CTRL+C.
 
 ## Process
 
-1. 
+1. Send a packet to the target, telling that the attacker is the AP.
+2. Send a packet to the AP, telling that the attacker is the target.
+3. Repeat the packet sending indefinitely.
 
 ## Usage
 
 ```
+usage: ARP Spoofer [-h] -a AP -t TARGET
 
+Execute MITM
+
+options:
+  -h, --help            show this help message and exit
+  -a AP, --access-point AP
+                        Access Point IPv4 Address (E.g. Router)
+  -t TARGET, --target TARGET
+                        Target IPv4 Address
 ```
 
 ## References
 
-* [String literals](https://docs.python.org/2.0/ref/strings.html): Python Escape Characters
+* [Tutorialspoint](https://www.tutorialspoint.com/python/python_exceptions.htm): Python - Exceptions Handling
+* [Tutorialspoint](https://www.tutorialspoint.com/python/python_loops.htm): Python - Loops
