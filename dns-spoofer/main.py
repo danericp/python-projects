@@ -38,7 +38,7 @@ def get_arguments():
         epilog='Tested with Parrot OS target'
     )
     obj_parser.add_argument("-d", "--domain-name", dest="dns", help="DNS (E.g. www.bing.com)", required=True)
-    obj_parser.add_argument("-p", "--payload", dest="payload", help="IPv4 Rerouting Address (E.g. 192.168.1.5)", required=True)
+    obj_parser.add_argument("-p", "--payload", dest="payload", help="IPv4 Rerouting Address (E.g. 192.168.1.6)", required=True)
     options = obj_parser.parse_args()
     return options
 

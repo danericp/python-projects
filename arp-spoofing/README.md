@@ -38,5 +38,6 @@ options:
 
 ## References
 
+* [Stack Overflow](https://stackoverflow.com/questions/59720769/unknown-pypcap-network-interface-eth0-error-with-python2-scapy-on-windows-10-m): Unknown pypcap network interface 'eth0' error with python2 scapy on windows 10 machine
 * [Tutorialspoint](https://www.tutorialspoint.com/python/python_exceptions.htm): Python - Exceptions Handling
 * [Tutorialspoint](https://www.tutorialspoint.com/python/python_loops.htm): Python - Loops
