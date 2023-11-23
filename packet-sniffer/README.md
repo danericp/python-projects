@@ -2,32 +2,29 @@
 
 * Linux-based Operating System (Kali, Parrot or Arch)
 * Python 3 (Python 2 commands have been replaced)
-* A target machine (Tested in Windows)
+* A target machine (Tested both in Windows and Parrot)
 * A network connection (wired or wireless) for the machines
+* An HTTP Website. HTTPS is not supported.
 
 ## Module Requirements
 
-* [argparse](https://docs.python.org/3/library/argparse.html?highlight=argparse): The argparse module makes it easy to write user-friendly command-line interfaces.
 * [scapy](https://scapy.readthedocs.io/en/latest/): Scapy is a Python program that enables the user to send, sniff, dissect and forge network packets. This capability allows construction of tools that can probe, scan or attack networks.
-* [scapy-http](https://github.com/invernizzi/scapy-http): Support for HTTP in Scapy. This has become deprecated and moved as part of native support.
 
 ## Output
 
-A continuous output of sending packets count. This can be stopped by a keyboard interruption CTRL+C.
+A continuous output of HTTP raw contents. This can be stopped by a keyboard interruption.
 
 ## Process
 
-1. Send a packet to the target, telling that the attacker is the AP.
-2. Send a packet to the AP, telling that the attacker is the target.
-3. Repeat the packet sending indefinitely.
+1. From your network interface, it will start scanning real-time packets.
+2. Process each packet with your desired protocols, port or extensions.
+3. Searches for login details and HTTP requests and print them out.
 
 ## Usage
 
-```
-
-```
+This only requires a custom variable input, which is your network interface (E.g. eth0).
 
 ## References
 
-* [Tutorialspoint](https://www.tutorialspoint.com/python/python_exceptions.htm): Python - Exceptions Handling
-* [Tutorialspoint](https://www.tutorialspoint.com/python/python_loops.htm): Python - Loops
+* [VulnWeb HTML5](http://testhtml5.vulnweb.com/): Vulnerable HTML5 test website for Acunetix Web Vulnerability Scanner.
+* [VulnWeb PHP](http://testphp.vulnweb.com/): TEST and Demonstration site for Acunetix Web Vulnerability Scanner

