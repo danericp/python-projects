@@ -1,14 +1,7 @@
-## Program Requirements
+## Important Notes
 
-* Linux-based Operating System (Kali, Parrot or Arch)
-* Python 3
-* A target machine (Tested in Windows Server)
-* A network connection (wired or wireless) for the machines
-* iptables setup before using the program
-```
-iptables -I FORWARD -j NFQUEUE --queue-num 0
-iptables -I FORWARD -j NFQUEUE
-```
+* Accept Encoding
+* Content-Length
 
 ## Module Requirements
 
@@ -40,6 +33,18 @@ iptables -I FORWARD -j NFQUEUE
 5. Start the File Interceptor.
 5. From the target, open browser and access an HTTP website. E.g. [SpeedBit](http://www.speedbit.com/)
 6. Download a file. The file should be replaced with your payload.
+
+## Program Requirements
+
+* Linux-based Operating System (Kali, Parrot or Arch)
+* Python 3
+* A target machine (Tested in Windows Server)
+* A network connection (wired or wireless) for the machines
+* iptables setup before using the program
+```
+iptables -I FORWARD -j NFQUEUE --queue-num 0
+iptables -I FORWARD -j NFQUEUE
+```
 
 ## Usage
 
