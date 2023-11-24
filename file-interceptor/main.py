@@ -2,7 +2,7 @@
 
 import argparse
 import netfilterqueue
-import scapy.all import *
+from scapy.all import *
 
 def do_packet_process(packet):
     ## Referenced from dns-spoofer
