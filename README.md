@@ -9,6 +9,7 @@
 
 ## HTTP Sites
 
+* [Github](https://github.com/digininja/DVWA): Damn Vulnerable Web Application (DVWA)
 * [SpeedBit](http://www.speedbit.com/)
 * [VulnWeb HTML5](http://testhtml5.vulnweb.com/)
 * [VulnWeb PHP](http://testphp.vulnweb.com/)
@@ -16,6 +17,6 @@
 ## References
 
 * [ChatGPT](https://chat.openai.com/)
-* [Github](https://github.com/digininja/DVWA): Damn Vulnerable Web Application (DVWA)
+* [Pythex](https://pythex.org/): Pythex is a quick way to test your Python regular expressions.
 * [Udemy](https://www.udemy.com/)
 * [Youtube](https://www.youtube.com/)
