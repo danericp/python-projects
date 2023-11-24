@@ -29,14 +29,17 @@ iptables --flush
 
 ## Process
 
-1. Setup the webserver of your payload
-```E.g. service apache2 start```
-2. Setup iptables. (iptables -I FORWARD -j NFQUEUE)
+1. Setup the webserver of your payload E.g. ```service apache2 start```
+2. Setup iptables.
+```
+iptables -I FORWARD -j NFQUEUE --queue-num 0
+iptables -I FORWARD -j NFQUEUE
+```
 3. Start the ARP Spoofer
-4. Enable Packet Forwarding of the MITM (echo 1 > /proc/sys/net/ipv4/ip_forward)
+4. Enable Packet Forwarding of the MITM E.g. ```echo 1 > /proc/sys/net/ipv4/ip_forward```
 5. Start the File Interceptor.
-5. From the target, open browser and access an HTTP website. (E.g. http://www.speedbit.com/)
-6. Download the file. The file should be replaced with your payload
+5. From the target, open browser and access an HTTP website. E.g. [SpeedBit](http://www.speedbit.com/)
+6. Download a file. The file should be replaced with your payload.
 
 ## Usage
 
