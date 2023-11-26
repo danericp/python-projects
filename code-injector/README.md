@@ -7,6 +7,7 @@
 
 * [argparse](https://docs.python.org/3/library/argparse.html?highlight=argparse): The argparse module makes it easy to write user-friendly command-line interfaces.
 * [NetfilterQueue ](https://pypi.org/project/NetfilterQueue/): NetfilterQueue provides access to packets matched by an iptables rule in Linux. Packets so matched can be accepted, dropped, altered, reordered, or given a mark.
+* [Regex](https://docs.python.org/3/library/re.html?highlight=re): This module provides regular expression matching operations similar to those found in Perl.
 * [scapy](https://scapy.readthedocs.io/en/latest/): Scapy is a Python program that enables the user to send, sniff, dissect and forge network packets. This capability allows construction of tools that can probe, scan or attack networks.
 
 ## Output
@@ -53,17 +54,14 @@ iptables -I FORWARD -j NFQUEUE
 ## Usage
 
 ```
-usage: File Interceptor [-h] -e EXT -p PAYLOAD
+usage: Code Injector [-h] -p PAYLOAD
 
-Intercepts Payload via MITM.
+Intercepts HTTP Responses via MITM.
 
 options:
   -h, --help            show this help message and exit
-  -e EXT, --extension EXT
-                        Extension of the expected payload (E.g. .exe, .rar, .zip)
-  -p PAYLOAD, --payload PAYLOAD
-                        Payload file Absolute Path (E.g. http://192.168.1.6/evil.exe
-                        https://www.7-zip.org/a/7z2301-x64.exe)
+  -p PAYLOAD, --payload-alert PAYLOAD
+                        Javascript Alert Message
 ```
 
 ## References
