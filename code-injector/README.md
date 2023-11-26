@@ -25,8 +25,12 @@ iptables --flush
 1. Setup the webserver of your payload E.g. ```service apache2 start```
 2. Setup iptables.
 ```
+iptables --flush
+iptables --table nat --flush
+iptables --delete-chain
+iptables --table nat --delete-chain
+iptables -P FORWARD ACCEPT
 iptables -I FORWARD -j NFQUEUE --queue-num 0
-iptables -I FORWARD -j NFQUEUE
 ```
 3. Start the ARP Spoofer
 4. Enable Packet Forwarding of the MITM E.g. ```echo 1 > /proc/sys/net/ipv4/ip_forward```
