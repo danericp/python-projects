@@ -11,7 +11,7 @@
 ## HTTP Sites
 
 * [Github](https://github.com/digininja/DVWA): Damn Vulnerable Web Application (DVWA)
-* [SpeedBit](http://www.speedbit.com/)
+* [SpeedBit](http://www.speedbit.com/): An HTML website with a download.
 * [VulnWeb HTML5](http://testhtml5.vulnweb.com/)
 * [VulnWeb PHP](http://testphp.vulnweb.com/)
 

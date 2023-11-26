@@ -1,6 +1,6 @@
 ## Important Notes
 
-* Accept Encoding
+* Accept-Encoding
 * Content-Length
 
 ## Module Requirements
@@ -46,10 +46,6 @@ iptables -I FORWARD -j NFQUEUE --queue-num 0
 * A target machine (Tested in Windows Server)
 * A network connection (wired or wireless) for the machines
 * iptables setup before using the program
-```
-iptables -I FORWARD -j NFQUEUE --queue-num 0
-iptables -I FORWARD -j NFQUEUE
-```
 
 ## Usage
 
