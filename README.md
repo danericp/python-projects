@@ -1,6 +1,7 @@
 ## Python Projects
 
 * [ARP Spoofer](https://github.com/danericp/python-projects/tree/main/arp-spoofer)
+* [Code Injector](https://github.com/danericp/python-projects/tree/main/code-injector)
 * [DNS Spoofer](https://github.com/danericp/python-projects/tree/main/dns-spoofer)
 * [File Interceptor](https://github.com/danericp/python-projects/tree/main/file-interceptor)
 * [MAC Changer](https://github.com/danericp/python-projects/tree/main/mac-changer)
