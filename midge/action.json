@@ -1,0 +1,19 @@
+[
+    {
+        "fetch": {
+            "sources": [
+                "C:\\Users\\$GETLOGIN\\Desktop",
+                "C:\\Users\\$GETLOGIN\\Documents",
+                "C:\\Users\\$GETLOGIN\\Pictures"
+            ],
+            "destination": "C:\\Users\\$GETLOGIN\\Downloads"
+        }
+    }
+    ,{
+        "sniff": {
+            "directories": [
+                "C:\\Users\\$GETLOGIN\\Documents"
+            ]
+        }
+    }
+]
