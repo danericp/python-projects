@@ -6,7 +6,7 @@ import logging
 import time
 
 ## Initialize some variables
-str_master = "master.json"
+file_action = "action.json"
 str_sha256_current = None
 
 ## Set up logging
@@ -16,6 +16,19 @@ logging.basicConfig(
     level=logging.DEBUG
 )
 
+def do_read_json(file_action):
+    import json
+    try:
+        with open(file_action, 'r') as obj_action:
+            obj_json = json.load(obj_action)
+        for obj_key in obj_json:
+            print(obj_key.keys())
+    except FileNotFoundError:
+        logging.critical(log_with_emoji('CRITICAL', 'File ' + file_action + ' not found.'))
+    except json.JSONDecodeError as e:
+        logging.error(log_with_emoji('ERROR', 'Error decoding JSON: ' + e))
+    pass
+
 ## Get the SHA256 property of a file
 def get_sha256sum(filename):
     h  = hashlib.sha256()
@@ -24,6 +37,7 @@ def get_sha256sum(filename):
     with open(filename, 'rb', buffering=0) as f:
         for n in iter(lambda : f.readinto(mv), 0):
             h.update(mv[:n])
+        f.close()
     return h.hexdigest()
 
 ## Function to add emojis to log messages
@@ -49,13 +63,14 @@ def main():
     # logging.error(log_with_emoji('ERROR', 'This is an error message'))
     # logging.critical(log_with_emoji('CRITICAL', 'This is a critical message'))
     global str_sha256_current
-    if str_sha256_current != get_sha256sum(str_master):
+    if str_sha256_current != get_sha256sum(file_action):
         logging.info(log_with_emoji('INFO', 'Changes found in the command file ' + emoji.emojize(':dog:')))
-        str_sha256_current = get_sha256sum(str_master)
+        do_read_json(file_action)
+        str_sha256_current = get_sha256sum(file_action)
     pass
 
 if __name__ == "__main__":
-    str_sha256_current = get_sha256sum(str_master)
+    str_sha256_current = get_sha256sum(file_action)
     while True:
         try:
             main()
