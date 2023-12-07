@@ -3,6 +3,8 @@
 import emoji
 import hashlib
 import logging
+import os
+import subprocess
 import time
 
 ## Initialize some variables
@@ -16,18 +18,38 @@ logging.basicConfig(
     level=logging.DEBUG
 )
 
+def do_parse_json(obj_json):
+    for obj_key in obj_json:
+        for obj_action in obj_key.keys():
+            if obj_action == 'fetch':
+                for json_source in obj_key['fetch']['source']:
+                    str_folder_source = str(json_source).replace('$COMPNAME', get_home_folder())
+                    str_folder_destination = str(obj_key['fetch']['destination']).replace('$COMPNAME', get_home_folder())
+                    str_protocol_ifexist = obj_key['fetch']['ifexist']
+                    logging.info(log_with_emoji('INFO', 'Fetching ' + str_folder_source + ' to ' + str_folder_destination + ' (Protocol: ' + str_protocol_ifexist + ')'))
+                    subprocess.run(['python', 'action/fetch.py', str_folder_source, str_folder_destination, str_protocol_ifexist])
+        # print(obj_key)
+        # print(obj_key.keys())
+        # print(obj_key['fetch'])
+        # print(obj_key['fetch']['source'])
+    pass
+
 def do_read_json(file_action):
     import json
     try:
         with open(file_action, 'r') as obj_action:
             obj_json = json.load(obj_action)
-        for obj_key in obj_json:
-            print(obj_key.keys())
+            do_parse_json(obj_json)
     except FileNotFoundError:
-        logging.critical(log_with_emoji('CRITICAL', 'File ' + file_action + ' not found.'))
+        logging.critical(log_with_emoji('CRITICAL', 'JSON file ' + file_action + ' not found.'))
     except json.JSONDecodeError as e:
-        logging.error(log_with_emoji('ERROR', 'Error decoding JSON: ' + e))
+        logging.error(log_with_emoji('ERROR', 'Error reading JSON: ' + e))
     pass
+
+def get_home_folder():
+    # Get the computer's name
+    home_folder = os.path.basename(os.path.expanduser("~"))
+    return home_folder
 
 ## Get the SHA256 property of a file
 def get_sha256sum(filename):

@@ -2,11 +2,9 @@
     {
         "fetch": {
             "source": [
-                "C:\\Users\\$GETLOGIN\\Desktop",
-                "C:\\Users\\$GETLOGIN\\Documents",
-                "C:\\Users\\$GETLOGIN\\Pictures"
+                "C:\\Users\\$COMPNAME\\Documents\\test"
             ],
-            "destination": "C:\\Users\\$GETLOGIN\\Downloads",
+            "destination": "C:\\Users\\$COMPNAME\\Downloads",
             "ifexist": "rename"
         }
     }
