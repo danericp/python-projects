@@ -7,7 +7,7 @@
                 "C:\\Users\\$GETLOGIN\\Pictures"
             ],
             "destination": "C:\\Users\\$GETLOGIN\\Downloads",
-            "try": 43
+            "ifexist": "rename"
         }
     }
 ] 
