@@ -2,7 +2,7 @@
     {
         "fetch": {
             "source": [
-                "C:\\Users\\$COMPNAME\\Documents\\test"
+                "C:\\Users\\$COMPNAME\\Downloads"
             ],
             "destination": "C:\\Users\\$COMPNAME\\Downloads",
             "ifexist": "rename"

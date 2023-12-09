@@ -35,8 +35,8 @@ def do_move_check(target, destination, protocol):
     if os.path.isfile(target):
         str_folder_destination_new = destination + '\\' + str_folder_prefix + os.path.splitext(target)[1][1:].upper()
     elif os.path.isdir(target):
-        str_folder_destination_new = destination + r'\Folder'
-        if os.path.basename(target) == 'Folder' or os.path.basename(target)[0:len(str_folder_prefix)] == str_folder_prefix:
+        str_folder_destination_new = destination + r'\Folders'
+        if os.path.basename(target) == 'Folders' or os.path.basename(target)[0:len(str_folder_prefix)] == str_folder_prefix:
             print("Cannot proceed moving the folder '" + target)
             boolean_proceed = False
     if boolean_proceed:
