@@ -70,3 +70,19 @@ kubernetes==10.0.1
 
 - [PyPI](https://pypi.org/)
 - [AnvilEight Blog](https://anvileight.com/blog/posts/simple-python-http-server/#google_vignette)
+
+
+<table>
+<tr>
+<th>Code</th><th>Description</th>
+</tr>
+<tr>
+<td>
+<textarea>
+echo 1<br>
+date
+</textarea>
+</td>
+<td>4</td>
+</tr>
+</table>
