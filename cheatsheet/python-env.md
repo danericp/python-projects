@@ -4,7 +4,11 @@ A collection of useful Python References for CLI and its modules.
 
 ## Table of Contents
 
-- []()
+- [Command Line Interface](#command-line-interface)
+- [Module - HTTP Server](#module---http-server)
+- [Module - Pip](#module---pip)
+- [Module - Virtual Environment](#module---virtual-environment)
+- [References](#references)
 
 ## Command Line Interface
 
@@ -22,9 +26,6 @@ A collection of useful Python References for CLI and its modules.
 
 ### Python 3.x
 Both port and bind address are optional. For more details, please read the [official docs](https://docs.python.org/3/library/http.server.html).
-
-### Python 2.x
-Python 2.x can only accept port as a parameter Bind address parameter is not available. Python 2.x Docs.
 
 ## Module - Pip
 
@@ -64,11 +65,6 @@ kubernetes==10.0.1
 | `python -m venv <Environment Name>` <br> `python -m venv my-test` <br> `python -m venv venv` | Virtual Environment - Create |
 | `deactivate` | Virtual Environment - Deactivate |
 | (venv) `python -m pip install <package-name>` <br> (venv) `python -m pip install django==2.2.26` | Virtual Environment - Install a Package |
-
-| Command | Description |
-|-|-|
-| `python` | |
-
 
 ## References
 
