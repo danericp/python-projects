@@ -18,4 +18,4 @@ obj_options = get_arguments()
 str_csv = obj_options.csv
 str_json = obj_options.config
 
-print(excel.test_function())
+print(excel.convert_csv_to_xlsx(str_csv, 'test.xlsx', 'sheet1', 'Arial', 12, 'badaaa'))
