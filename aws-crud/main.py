@@ -9,7 +9,6 @@ def get_arguments():
         epilog="Tested in Python 3.12"
     )
     obj_parser.add_argument("-a", "--action", dest="action", help="Pre-defined action", required=True)
-    obj_parser.add_argument("-c", "--config", dest="config", help="JSON Configuration file", required=True)
     options = obj_parser.parse_args()
     return options
 
@@ -17,5 +16,5 @@ def get_arguments():
 if __name__ == "__main__":
     obj_options = get_arguments()
     str_action = obj_options.action
-    path_json = obj_options.config
+    path_json = "config.json"
     do_exec(path_json, str_action)
