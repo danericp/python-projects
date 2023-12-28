@@ -4,13 +4,13 @@ An automated solution for managing your AWS resources. This ultimately eliminate
 
 ## Usage
 
-1. Refer to [config.json](config.json) to see all prerequisites required by each actions.
+1. Refer to [config.json](config.json) to see all prerequisites required by each action.
 2. Run `python main.py -h` or `python main.py --help` to see the required parameters.
 
 ```commandline
 options:
-  -h, --help            show this help message and exit
-  -a ACTION, --action ACTION
+  -h --help            show this help message and exit
+  -a ACTION --action ACTION
                         Pre-defined action
 ```
 
