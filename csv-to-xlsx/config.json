@@ -1,22 +1,24 @@
 {
     "metadata": {
       "sheet-name": "Report",
-      "has-headers": true,
-      "keyword-error": ["max", "err", "error"],
-      "keyword-warn": ["med", "medium", "warn", "warning"]
+      "has-headers": true
     },
     "header": {
-      "background-color": "AAAAAA",
-      "cell-align": "left",
+      "background-color": "4F81BD",
+      "background-fill-type": "solid",
+      "cell-align-h": "center",
+      "cell-align-v": "top",
       "font-bold": true,
-      "font-color": "000000",
+      "font-color": "FFFFFF",
       "font-italic": false,
-      "font-name": "Arial",
-      "font-size": 12
+      "font-name": "Calibri",
+      "font-size": 13
     },
     "data": {
       "background-color": "FFFFFF",
-      "font-align": "left",
+      "background-fill-type": "solid",
+      "cell-align-h": "left",
+      "cell-align-v": "top",
       "font-bold": false,
       "font-color": "000000",
       "font-italic": false,

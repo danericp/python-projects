@@ -6,7 +6,7 @@ def get_arguments():
     obj_parser = argparse.ArgumentParser(
         prog='CSV to XLSX',
         description='Convert your CSV file into a customized XLSX.',
-        epilog="Tested with Python 3.8"
+        epilog="Tested in Python 3.12"
     )
     obj_parser.add_argument("-f", "--file", dest="csv", help="CSV file", required=True)
     obj_parser.add_argument("-c", "--config", dest="config", help="JSON Configuration file", required=False)
