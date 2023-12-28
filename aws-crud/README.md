@@ -4,7 +4,7 @@ An automated solution for managing your AWS resources. This ultimately eliminate
 
 ## Usage
 
-1. Refer to [config.json](config.json) to configure.
+1. Refer to [config.json](config.json) to see all prerequisites required by each actions.
 2. Run `python main.py -h` or `python main.py --help` to see the required parameters.
 
 ```commandline
