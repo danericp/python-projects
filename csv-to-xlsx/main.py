@@ -14,8 +14,9 @@ def get_arguments():
     return options
 
 
-obj_options = get_arguments()
-str_csv = obj_options.csv
-str_json = obj_options.config
-
-print(excel.convert_csv_to_xlsx(str_csv, 'test.xlsx', 'sheet1', 'Arial', 12, 'badaaa'))
+if __name__ == "__main__":
+    obj_options = get_arguments()
+    path_csv = obj_options.csv
+    path_json = obj_options.config
+    excel.do_check_file_exists(path_json)
+    excel.convert_csv_to_xlsx(path_json, path_csv)
