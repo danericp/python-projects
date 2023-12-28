@@ -26,6 +26,13 @@ options:
 
 A successful prompt will appear in the console and an XLSX file having the basename of your CSV input. 
 
+```
+The file 'config.json' exists.
+CSV file 'test.csv' successfully converted to XLSX file 'test.xlsx'
+```
+
+![Output](example-output/test.png)
+
 ## References
 
 - [OpenPyXL](https://openpyxl.readthedocs.io/en/stable/styles.html): Working with styles
