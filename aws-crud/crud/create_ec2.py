@@ -1,29 +1,36 @@
+from gateway import do_parse_json
 from boto3 import client
 
-# AWS credentials
-aws_access_key = ''
-aws_secret_key = ''
-region = 'us-east-1'
 
-# Create EC2 client
-ec2 = client('ec2', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key, region_name=region)
+def do_create_ec2(json):
+    json_data = do_parse_json(json)
+    # AWS credentials
+    aws_access_key = json_data['metadata']['key-aws-access']
+    aws_secret_key = json_data['metadata']['key-aws-secret']
+    aws_region = json_data['metadata']['aws-region']
+    url_endpoint = json_data['metadata']['url-endpoint']
 
-# Specify instance details
-instance_type = 't2.micro'
-image_id = 'ami-0d68f0bd4c34d63a2'  # Specify the AMI ID for the instance
-key_name = 'test'  # Specify your key pair name
-security_group_ids = ['sg-00fe19126381796fa']  # Specify the security group IDs
+    # Create EC2 client
+    if json_data["metadata"]["url-endpoint"]:
+        print("Endpoint URL configuration found.")
+        ec2 = client('ec2', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key,
+                     endpoint_url=url_endpoint, region_name=aws_region)
+    else:
+        ec2 = client('ec2', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key,
+                     region_name=aws_region)
 
-# Launch EC2 instance
-response = ec2.run_instances(
-    ImageId=image_id,
-    InstanceType=instance_type,
-    KeyName=key_name,
-    SecurityGroupIds=security_group_ids,
-    MinCount=1,
-    MaxCount=1
-)
+    # Specify the parameters for the EC2 instance
+    instance_params = {
+        'ImageId': json_data['create-ec2']['image-id'],  # Replace with a valid AMI ID
+        'InstanceType': json_data['create-ec2']['instance-type'],
+        'KeyName': json_data['create-ec2']['key-name'],  # Replace with your key pair name
+        'MinCount': json_data['create-ec2']['min-count'],
+        'MaxCount': json_data['create-ec2']['max-count']
+    }
 
-# Get instance ID
-instance_id = response['Instances'][0]['InstanceId']
-print(f"Launched instance ID: {instance_id}")
+    # Launch EC2 instance
+    response = ec2.run_instances(**instance_params)
+
+    # Get instance ID
+    instance_id = response['Instances'][0]['InstanceId']
+    print(f"Launched instance ID: {instance_id}")
