@@ -25,6 +25,7 @@ All read-based actions are formatted in a user-friendly manner.
 | Action                   | Description                                                   |
 |--------------------------|---------------------------------------------------------------|
 | create_ec2               | Create an EC2 machine.                                        |
+| create_create_s3_bucket  | Create an S3 bucket.                                          |
 | read_ec2_instance_types  | Checks your AWS Account, and lists down EC2 > Instance Types  |
 | read_ec2_key_pairs       | Checks your AWS Account, and lists down EC2 > Key Pairs       |
 | read_ec2_security_groups | Checks your AWS Account, and lists down EC2 > Security Groups |
