@@ -4,7 +4,7 @@
     "key-aws-access": "",
     "key-aws-secret": "",
     "line-break-width": 20,
-    "url-endpoint": ""
+    "url-endpoint": "http://localhost:4566"
   },
   "create-ec2": {
     "image-id": "ami-0d68f0bd4c34d63a2",
@@ -13,6 +13,9 @@
     "max-count": 1,
     "min-count": 1,
     "security-group-id": "sg-00fe19126381796fa"
+  },
+  "create-s3-bucket": {
+    "bucket-name": "test-bucket"
   },
   "read-ec2-instance-types": {
     "FreeTierEligible": true
