@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "aws-region": "us-west-1",
+    "aws-region": "us-east-1",
     "key-aws-access": "",
     "key-aws-secret": "",
     "line-break-width": 20,
@@ -16,6 +16,9 @@
   },
   "create-s3-bucket": {
     "bucket-name": "test-bucket"
+  },
+  "create-sqs-queue": {
+    "queue-name": "test-queue"
   },
   "read-ec2-instance-types": {
     "FreeTierEligible": true

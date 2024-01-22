@@ -11,7 +11,7 @@ def do_create_s3_bucket(json):
     bucket_name = json_data['create-s3-bucket']['bucket-name']
     url_endpoint = json_data['metadata']['url-endpoint']
 
-    # Create EC2 client
+    # Create S3 client
     if url_endpoint:
         print("Endpoint URL configuration found.")
         s3_client = client('s3', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key,

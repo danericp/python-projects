@@ -19,6 +19,9 @@ def do_exec(json_config, action):
         case "create_s3_bucket":
             import crud.create_s3_bucket as s3b_new
             s3b_new.do_create_s3_bucket(json_config)
+        case "create_sqs_queue":
+            import crud.create_sqs_queue as sqs_new
+            sqs_new.do_create_sqs_queue(json_config)
         case "read_ec2_instance_types":
             import crud.read_ec2_instance_types as ec2_it
             ec2_it.do_read_ec2_instance_types(json_config)
