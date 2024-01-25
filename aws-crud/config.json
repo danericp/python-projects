@@ -7,6 +7,7 @@
     "url-endpoint": "http://localhost:4566"
   },
   "create-ec2": {
+    "gateway-action": "create_ec2",
     "image-id": "ami-0d68f0bd4c34d63a2",
     "instance-type": "t2.micro",
     "key-name": "my-ec2",
@@ -14,13 +15,53 @@
     "min-count": 1,
     "security-group-id": "sg-00fe19126381796fa"
   },
+  "create-iam-group": {
+    "gateway-action": "create_iam_group",
+    "name": "test-group"
+  },
+  "create-iam-policy": {
+    "gateway-action": "create_iam_policy",
+    "policy-name": "MyPolicy",
+    "policy-document": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": "s3:GetObject",
+          "Resource": "arn:aws:s3:::your-bucket-name/*"
+        }
+      ]
+    }
+  },
+  "create-iam-role": {
+    "gateway-action": "create_iam_role",
+    "role-content": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Principal": {
+            "Service": "ec2.amazonaws.com"
+          },
+          "Action": "sts:AssumeRole"
+        }
+      ]
+    }
+  },
+  "create-iam-user": {
+    "gateway-action": "create_iam_user",
+    "name": "test-user"
+  },
   "create-s3-bucket": {
+    "gateway-action": "create_s3_bucket",
     "bucket-name": "test-bucket"
   },
   "create-sqs-queue": {
+    "gateway-action": "create_sqs_queue",
     "queue-name": "test-queue"
   },
   "read-ec2-instance-types": {
+    "gateway-action": "read_ec2_instance_types",
     "FreeTierEligible": true
   }
 }

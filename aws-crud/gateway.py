@@ -16,6 +16,12 @@ def do_exec(json_config, action):
         case "create_ec2":
             import crud.create_ec2 as ec2_new
             ec2_new.do_create_ec2(json_config)
+        case "create_iam_group":
+            import crud.create_iam_group as iam_group_new
+            iam_group_new.do_create_iam_group(json_config)
+        case "create_iam_user":
+            import crud.create_iam_user as iam_user_new
+            iam_user_new.do_create_iam_user(json_config)
         case "create_s3_bucket":
             import crud.create_s3_bucket as s3b_new
             s3b_new.do_create_s3_bucket(json_config)
@@ -31,6 +37,12 @@ def do_exec(json_config, action):
         case "read_ec2_security_groups":
             import crud.read_ec2_security_groups as ec2_sg
             ec2_sg.do_read_ec2_security_groups(json_config)
+        case "read_iam_groups":
+            import crud.read_iam_groups as iam_groups
+            iam_groups.do_read_iam_groups(json_config)
+        case "read_iam_users":
+            import crud.read_iam_users as iam_users
+            iam_users.do_read_iam_users(json_config)
         case _:
             print(f"Invalid action '{action}'.")
             exit()
