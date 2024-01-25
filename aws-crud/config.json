@@ -63,5 +63,8 @@
   "read-ec2-instance-types": {
     "gateway-action": "read_ec2_instance_types",
     "FreeTierEligible": true
+  },
+  "read-iam-policies": {
+    "gateway-action": "read_iam_policies"
   }
 }

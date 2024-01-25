@@ -40,6 +40,9 @@ def do_exec(json_config, action):
         case "read_iam_groups":
             import crud.read_iam_groups as iam_groups
             iam_groups.do_read_iam_groups(json_config)
+        case "read_iam_policies":
+            import crud.read_iam_policies as iam_policies
+            iam_policies.do_read_iam_policies(json_config)
         case "read_iam_users":
             import crud.read_iam_users as iam_users
             iam_users.do_read_iam_users(json_config)
