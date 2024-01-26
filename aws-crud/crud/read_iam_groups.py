@@ -1,23 +1,11 @@
-from gateway import do_parse_json
-import boto3
+from gateway import do_parse_json, do_setup_aws_client
 
 
 def do_read_iam_groups(json):
     json_data = do_parse_json(json)
-    # AWS credentials
-    aws_region = json_data['metadata']['aws-region']
-    aws_access_key = json_data['metadata']['key-aws-access']
-    aws_secret_key = json_data['metadata']['key-aws-secret']
-    url_endpoint = json_data['metadata']['url-endpoint']
 
     # Create IAM client
-    if url_endpoint:
-        print("Endpoint URL configuration found.")
-        iam_client = boto3.client('iam', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key,
-                                  endpoint_url=url_endpoint, region_name=aws_region)
-    else:
-        iam_client = boto3.client('iam', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key,
-                                  region_name=aws_region)
+    iam_client = do_setup_aws_client(json_data, 'iam')
 
     try:
         aws_out = iam_client.list_groups()

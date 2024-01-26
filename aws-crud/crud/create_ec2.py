@@ -1,23 +1,11 @@
-from gateway import do_parse_json
-from boto3 import client
+from gateway import do_parse_json, do_setup_aws_client
 
 
 def do_create_ec2(json):
     json_data = do_parse_json(json)
-    # AWS credentials
-    aws_access_key = json_data['metadata']['key-aws-access']
-    aws_secret_key = json_data['metadata']['key-aws-secret']
-    aws_region = json_data['metadata']['aws-region']
-    url_endpoint = json_data['metadata']['url-endpoint']
 
     # Create EC2 client
-    if json_data["metadata"]["url-endpoint"]:
-        print("Endpoint URL configuration found.")
-        ec2 = client('ec2', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key,
-                     endpoint_url=url_endpoint, region_name=aws_region)
-    else:
-        ec2 = client('ec2', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key,
-                     region_name=aws_region)
+    ec2 = do_setup_aws_client(json_data, 'ec2')
 
     # Specify the parameters for the EC2 instance
     instance_params = {

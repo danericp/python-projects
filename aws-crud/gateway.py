@@ -1,3 +1,4 @@
+from boto3 import client
 import json
 import os
 
@@ -56,3 +57,25 @@ def do_parse_json(file_json):
     with open(file_json, 'r') as file:
         data_json = json.load(file)
     return data_json
+
+
+def do_setup_aws_client(json_data, service):
+    aws_client = None
+    try:
+        aws_access_key = json_data['metadata']['key-aws-access']
+        aws_secret_key = json_data['metadata']['key-aws-secret']
+        aws_region = json_data['metadata']['aws-region']
+        url_endpoint = json_data['metadata']['url-endpoint']
+
+        # Setup AWS client based on endpoint
+        if json_data["metadata"]["url-endpoint"] and service:
+            print("Endpoint URL configuration found.")
+            aws_client = client(service, aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key,
+                                endpoint_url=url_endpoint, region_name=aws_region)
+        else:
+            aws_client = client(service, aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key,
+                                region_name=aws_region)
+            
+    except Exception as e:
+        print(f"Exception: {e}")
+    return aws_client

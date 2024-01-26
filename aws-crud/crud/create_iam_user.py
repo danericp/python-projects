@@ -1,24 +1,14 @@
-from gateway import do_parse_json
-from boto3 import client
+from gateway import do_parse_json, do_setup_aws_client
 
 
 def do_create_iam_user(json):
     json_data = do_parse_json(json)
-    # AWS credentials
-    aws_region = json_data['metadata']['aws-region']
-    aws_access_key = json_data['metadata']['key-aws-access']
-    aws_secret_key = json_data['metadata']['key-aws-secret']
+
+    # IAM prerequisites
     iam_user_name = json_data['create-iam-user']['name']
-    url_endpoint = json_data['metadata']['url-endpoint']
 
     # Create IAM client
-    if url_endpoint:
-        print("Endpoint URL configuration found.")
-        iam_client = client('iam', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key,
-                            endpoint_url=url_endpoint, region_name=aws_region)
-    else:
-        iam_client = client('iam', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key,
-                            region_name=aws_region)
+    iam_client = do_setup_aws_client(json_data, 'iam')
 
     try:
         # Create IAM user

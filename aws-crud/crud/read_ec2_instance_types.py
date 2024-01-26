@@ -1,10 +1,9 @@
-from gateway import do_parse_json
-import boto3
+from gateway import do_parse_json, do_setup_aws_client
 
 
 def do_read_ec2_instance_types(json):
     json_data = do_parse_json(json)
-    ec2_client = boto3.client('ec2')
+    ec2_client = do_setup_aws_client(json_data, 'ec2')
     try:
         aws_out = ec2_client.describe_instance_types()
         if not aws_out:

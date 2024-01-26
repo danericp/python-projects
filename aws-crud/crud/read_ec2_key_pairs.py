@@ -1,10 +1,9 @@
-from gateway import do_parse_json
-import boto3
+from gateway import do_parse_json, do_setup_aws_client
 
 
 def do_read_ec2_key_pairs(json):
     json_data = do_parse_json(json)
-    ec2_client = boto3.client('ec2', region_name=json_data["metadata"]["aws-region"])
+    ec2_client = do_setup_aws_client(json_data, 'ec2')
     try:
         aws_out = ec2_client.describe_key_pairs()
         key_pairs = aws_out['KeyPairs']

@@ -1,26 +1,15 @@
-from gateway import do_parse_json
+from gateway import do_parse_json, do_setup_aws_client
 import boto3
 
 
 def do_read_iam_policies(json):
     json_data = do_parse_json(json)
-    # AWS credentials
-    aws_region = json_data['metadata']['aws-region']
-    aws_access_key = json_data['metadata']['key-aws-access']
-    aws_secret_key = json_data['metadata']['key-aws-secret']
-    url_endpoint = json_data['metadata']['url-endpoint']
 
     # Create IAM client
-    if url_endpoint:
-        print("Endpoint URL configuration found.")
-        iam_client = boto3.client('iam', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key,
-                                  endpoint_url=url_endpoint, region_name=aws_region)
-    else:
-        iam_client = boto3.client('iam', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key,
-                                  region_name=aws_region)
+    iam_client = do_setup_aws_client(json_data, 'iam')
 
     try:
-        aws_out = iam_client.list_policies(Scope='All')
+        aws_out = iam_client.list_policies(Scope=json_data['read-iam-policies']['scope'])
         aws_policies = aws_out['Policies']
         if not aws_out:
             print("No IAM policies found in the account.")
@@ -36,10 +25,6 @@ def do_read_iam_policies(json):
                 print(f"\t\tPath: {aws_policy['Path']}")
                 print(f"\t\tDefaultVersionId: {aws_policy['DefaultVersionId']}")
                 print(f"\t\tAttachmentCount: {aws_policy['AttachmentCount']}")
-                # print(f"\t\tUser Id: {aws_user['UserId']}")
-                # print(f"\t\tPath: {aws_user['Path']}")
-                # print(f"\t\tArn: {aws_user['Arn']}")
-                # print(f"\t\tCreateDate: {aws_user['CreateDate']}")
     except iam_client.exceptions.ClientError as e:
         print(f"ec2_client.exceptions.ClientError: {e}")
     except Exception as e:

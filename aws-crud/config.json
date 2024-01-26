@@ -65,6 +65,10 @@
     "FreeTierEligible": true
   },
   "read-iam-policies": {
-    "gateway-action": "read_iam_policies"
+    "gateway-action": "read_iam_policies",
+    "scope": "All"
+  },
+  "read-iam-users": {
+    "gateway-action": "read_iam_users"
   }
 }
