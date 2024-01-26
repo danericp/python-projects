@@ -1,4 +1,5 @@
 from boto3 import client
+from prettytable import PrettyTable
 import json
 import os
 
@@ -59,6 +60,10 @@ def do_parse_json(file_json):
     return data_json
 
 
+def do_setup_prettytable(array_headers):
+    return PrettyTable(array_headers)
+
+
 def do_setup_aws_client(json_data, service):
     aws_client = None
     try:
@@ -75,7 +80,7 @@ def do_setup_aws_client(json_data, service):
         else:
             aws_client = client(service, aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key,
                                 region_name=aws_region)
-            
+
     except Exception as e:
         print(f"Exception: {e}")
     return aws_client
