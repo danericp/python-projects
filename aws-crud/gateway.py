@@ -15,12 +15,21 @@ def do_check_file_exists(path_file):
 def do_exec(json_config, action):
     do_check_file_exists(json_config)
     match action:
+        case "attach_policy_to_role":
+            import crud.attach_iam_policy_to_role as attach_policy_role
+            attach_policy_role.do_attach_iam_policy_to_role(json_config)
         case "create_ec2":
             import crud.create_ec2 as ec2_new
             ec2_new.do_create_ec2(json_config)
         case "create_iam_group":
             import crud.create_iam_group as iam_group_new
             iam_group_new.do_create_iam_group(json_config)
+        case "create_iam_policy":
+            import crud.create_iam_policy as iam_policy_new
+            iam_policy_new.do_create_iam_policy(json_config)
+        case "create_iam_role":
+            import crud.create_iam_role as iam_role_new
+            iam_role_new.do_create_iam_role(json_config)
         case "create_iam_user":
             import crud.create_iam_user as iam_user_new
             iam_user_new.do_create_iam_user(json_config)

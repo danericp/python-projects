@@ -6,6 +6,11 @@
     "line-break-width": 20,
     "url-endpoint": "http://localhost:4566"
   },
+  "attach-policy-to-role": {
+    "gateway-action": "attach_policy_to_role",
+    "policy": "testpolicy",
+    "role": "testrole"
+  },
   "create-ec2": {
     "gateway-action": "create_ec2",
     "image-id": "ami-0d68f0bd4c34d63a2",
@@ -21,29 +26,31 @@
   },
   "create-iam-policy": {
     "gateway-action": "create_iam_policy",
-    "policy-name": "MyPolicy",
-    "policy-document": {
+    "name": "testpolicy",
+    "document": {
       "Version": "2012-10-17",
       "Statement": [
         {
           "Effect": "Allow",
           "Action": "s3:GetObject",
-          "Resource": "arn:aws:s3:::your-bucket-name/*"
+          "Resource": "arn:aws:s3:::test-bucket/*"
         }
       ]
     }
   },
   "create-iam-role": {
     "gateway-action": "create_iam_role",
-    "role-content": {
+    "name": "testrole",
+    "content": {
       "Version": "2012-10-17",
       "Statement": [
         {
           "Effect": "Allow",
           "Principal": {
-            "Service": "ec2.amazonaws.com"
+            "AWS": "arn:aws:iam::000000000000:root"
           },
-          "Action": "sts:AssumeRole"
+          "Action": "sts:AssumeRole",
+          "Condition": {}
         }
       ]
     }

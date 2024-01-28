@@ -22,8 +22,9 @@ For the actions, please see [Action Features](#action-features) for details.
 
 All read-based actions are formatted in a user-friendly manner.
 
-| Action                   | Description                                                   |
-|--------------------------|---------------------------------------------------------------|
+| Action                   |
+|--------------------------|
+| attach_policy_to_role    |
 | create_ec2               | Create an EC2 machine.                                        |
 | create_iam_group         | Create an IAM group.                                          |
 | create_iam_policy        | Create an IAM policy.                                         |
@@ -36,3 +37,9 @@ All read-based actions are formatted in a user-friendly manner.
 | read_ec2_security_groups | Checks your AWS Account, and lists down EC2 > Security Groups |
 | read_iam_groups          | Checks your AWS Account, and lists down IAM > Groups          |
 | read_iam_users           | Checks your AWS Account, and lists down IAM > USers           |
+
+## References
+
+- [Geeks for Geeks](https://www.geeksforgeeks.org/how-to-make-a-table-in-python/): How to make a table in Python?
+- [PTable](https://ptable.readthedocs.io/en/latest/tutorial.html): Tutorial
+- [Python Forums](https://python-forum.io/thread-38313.html): Convert Json to table format
